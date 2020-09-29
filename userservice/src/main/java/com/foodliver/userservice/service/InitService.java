@@ -1,5 +1,6 @@
 package com.foodliver.userservice.service;
 
+import com.foodliver.userservice.model.Address;
 import com.foodliver.userservice.model.User;
 import com.foodliver.userservice.repository.UserRepository;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -17,11 +18,11 @@ public class InitService {
     }
 
     @EventListener (ApplicationReadyEvent.class)
-    public void initFakeUsers() {
+    public void mockUsers() {
 
         userRepository.deleteAll()
                 .then(
-                        Mono.just(new User("0", "user1@gmail.com", "password", "first", "last", "street", "city", 1, 2, "123456789"))
+                        Mono.just(new User("0", "user1@gmail.com", "password", "first", "last", new Address("Wroclove", "Pilsudskiego", 1, 2, "50-500"), "123456789"))
                 ).flatMap(userRepository::save)
                 .subscribe();
     }

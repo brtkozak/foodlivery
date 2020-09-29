@@ -26,7 +26,8 @@ public class UserRouter {
         return RouterFunctions.
                 route(GET(BASE_ENDPOINT + "/{userId}"), userHandler::getUser)
                 .andRoute(POST( BASE_ENDPOINT +"/register"), userHandler::registerUser)
-                .andRoute(GET(BASE_ENDPOINT + "/get/all"), userHandler::getAll);
+                .andRoute(GET(BASE_ENDPOINT + "/get/all"), userHandler::getAll)
+                .andRoute(PUT(BASE_ENDPOINT + "/{userId}"), userHandler::updateUser);
     }
 
 }

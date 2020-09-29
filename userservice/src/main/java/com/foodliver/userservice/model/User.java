@@ -16,28 +16,27 @@ import java.util.Collections;
 @Data
 @AllArgsConstructor
 @Document(collection = "users")
+@NoArgsConstructor
 public class User implements UserDetails {
-
-    @Transient
-    public static final String SEQUENCE_NAME = "users_sequence";
 
     @Id
     private String id;
     @Indexed(unique = true)
-    @NotEmpty(message = "Email can not be empty")
     private String email;
-    @NotEmpty(message = "Password can not be empty")
     private String password;
-    @NotEmpty(message = "First name can not be empty")
     private String firstName;
-    @NotEmpty(message = "Last name can not be empty")
     private String lastName;
-    private String street;
-    private String city;
-    private int buildingNo;
-    private int homeNo;
-    @Size(min = 9, message = "Invalid phone number length")
+    private Address address;
     private String phoneNo;
+
+    public User(String email, String password, String firstName, String lastName, Address address, String phoneNo) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNo = phoneNo;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
