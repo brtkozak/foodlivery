@@ -12,4 +12,6 @@ public class Constants {
     public static String QUERY_NAME = "name";
     public static String QUERY_CATEGORY = "category";
     public static String QUERY_CITY = "city";
+
+    public static String SERVICE_NAME_DISH = "dishservice";
 }

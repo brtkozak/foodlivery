@@ -22,8 +22,6 @@ public class InitService {
 
     @EventListener(ApplicationReadyEvent.class)
     public void mockRestaurants() {
-
-
         restaurantRepository.deleteAll()
                 .thenMany(
                         Flux.just(new Restaurant("1", "Pizzeria", new Address("Wroclove", "Pilsudskiego", 1, 2, "50-500"), Arrays.asList(Restaurant.Category.ITALIAN, Restaurant.Category.EUROPEAN), 29d),

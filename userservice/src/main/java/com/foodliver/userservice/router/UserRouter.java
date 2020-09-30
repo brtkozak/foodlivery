@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
+import static com.foodliver.userservice.utils.Constants.BASE_ENDPOINT;
+import static com.foodliver.userservice.utils.Constants.PATH_VARIABLE_USER_ID;
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 
 @Configuration
 public class UserRouter {
-
-    public static final String BASE_ENDPOINT = "/user";
-    public static String PATH_VARIABLE_USER_ID = "userId";
 
     private UserService userService;
 
