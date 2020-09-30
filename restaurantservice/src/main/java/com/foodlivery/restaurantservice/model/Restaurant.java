@@ -16,11 +16,11 @@ import java.util.List;
 public class Restaurant {
 
     @Id
-    public String id;
-    public String name;
-    public Address address;
-    public List<Category> categories;
-    double minOrderPrice;
+    private String id;
+    private String name;
+    private Address address;
+    private List<Category> categories;
+    private double minOrderPrice;
 
     public Restaurant(String name, Address address, List<Category> categories, double minOrderPrice) {
         this.name = name;

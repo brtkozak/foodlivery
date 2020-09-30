@@ -1,4 +1,4 @@
-package com.foodlivery.restaurantservice.router;
+package com.foodlivery.dishservice.router;
 
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;

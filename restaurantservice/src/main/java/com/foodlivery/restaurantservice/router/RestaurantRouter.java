@@ -1,6 +1,6 @@
 package com.foodlivery.restaurantservice.router;
 
-import com.foodlivery.restaurantservice.handler.RestaurantHandler;
+import com.foodlivery.restaurantservice.service.RestaurantService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -13,18 +13,20 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 public class RestaurantRouter {
 
     public static String BASE_ENDPOINT = "/restaurant";
+    public static String PATH_VARIABLE_RESTAURANT_ID = "restaurantId";
 
-    private RestaurantHandler restaurantHandler;
 
+    private RestaurantService restaurantService;
 
-    public RestaurantRouter(RestaurantHandler restaurantHandler) {
-        this.restaurantHandler = restaurantHandler;
+    public RestaurantRouter(RestaurantService restaurantService) {
+        this.restaurantService = restaurantService;
     }
 
     @Bean
     RouterFunction<ServerResponse> restaurantRouting() {
         return RouterFunctions
-                .route(GET(BASE_ENDPOINT + "/get/all"), restaurantHandler::getAll);
+                .route(GET(BASE_ENDPOINT + "/get/all"), restaurantService::getAll)
+                .andRoute(GET(BASE_ENDPOINT + "/{" + PATH_VARIABLE_RESTAURANT_ID + "}"), restaurantService::getRestaurant);
     }
 
 }

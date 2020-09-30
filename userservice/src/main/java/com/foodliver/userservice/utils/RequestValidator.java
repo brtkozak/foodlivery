@@ -1,4 +1,4 @@
-package com.foodliver.userservice.handler;
+package com.foodliver.userservice.utils;
 
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;

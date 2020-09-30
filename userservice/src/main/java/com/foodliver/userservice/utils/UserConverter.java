@@ -1,4 +1,4 @@
-package com.foodliver.userservice.handler;
+package com.foodliver.userservice.utils;
 
 import com.foodliver.userservice.model.User;
 import com.foodliver.userservice.model.request.UserRequest;
@@ -6,9 +6,10 @@ import com.foodliver.userservice.model.response.UserResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class UserConverter {
 
     @Bean

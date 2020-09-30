@@ -19,7 +19,6 @@ public class InitService {
 
     @EventListener (ApplicationReadyEvent.class)
     public void mockUsers() {
-
         userRepository.deleteAll()
                 .then(
                         Mono.just(new User("0", "user1@gmail.com", "password", "first", "last", new Address("Wroclove", "Pilsudskiego", 1, 2, "50-500"), "123456789"))

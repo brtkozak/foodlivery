@@ -1,5 +1,8 @@
-package com.foodliver.userservice.handler;
+package com.foodliver.userservice.service;
 
+import com.foodliver.userservice.router.UserRouter;
+import com.foodliver.userservice.utils.RequestValidator;
+import com.foodliver.userservice.utils.UserConverter;
 import com.foodliver.userservice.model.User;
 import com.foodliver.userservice.model.request.UserRequest;
 import com.foodliver.userservice.repository.UserRepository;
@@ -15,20 +18,20 @@ import reactor.core.publisher.Mono;
 import java.net.URI;
 
 @Service
-public class UserHandler implements ReactiveUserDetailsService {
+public class UserService implements ReactiveUserDetailsService {
 
     private UserRepository userRepository;
     private RequestValidator requestValidator;
     private UserConverter userConverter;
 
-    public UserHandler(UserRepository userRepository, RequestValidator requestValidator, UserConverter userConverter){
+    public UserService(UserRepository userRepository, RequestValidator requestValidator, UserConverter userConverter){
         this.userRepository = userRepository;
         this.requestValidator = requestValidator;
         this.userConverter = userConverter;
     }
 
     public Mono<ServerResponse> getUser(ServerRequest request) {
-        return userRepository.findById(request.pathVariable("userId"))
+        return userRepository.findById(request.pathVariable(UserRouter.PATH_VARIABLE_USER_ID))
                 .map(userConverter::userToUserResponse)
                 .flatMap(user ->
                         ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(user), User.class))
@@ -56,7 +59,7 @@ public class UserHandler implements ReactiveUserDetailsService {
                 .flatMap(requestValidator::validate)
                 .map(userConverter::userRequestToUser)
                 .map(user -> {
-                    user.setId(request.pathVariable("userId"));
+                    user.setId(request.pathVariable(UserRouter.PATH_VARIABLE_USER_ID));
                     return user;
                 })
                 .flatMap(userRepository::save)
