@@ -26,7 +26,25 @@ public class InitService {
         restaurantRepository.deleteAll()
                 .thenMany(
                         Flux.just(new Restaurant("1", "Pizzeria", new Address("Wroclove", "Pilsudskiego", 1, 2, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.ITALIAN)), 29d),
-                                new Restaurant("2", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d))
+                                new Restaurant("2", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("3", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("4", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("5", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("6", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("7", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("8", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("9", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("10", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("11", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("12", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("13", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("14", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("15", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("16", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("17", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("18", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("19", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
+                                new Restaurant("20", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d))
                 ).flatMap(restaurantRepository::save)
                 .subscribe();
     }

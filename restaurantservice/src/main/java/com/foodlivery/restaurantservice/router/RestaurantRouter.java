@@ -26,6 +26,7 @@ public class RestaurantRouter {
     RouterFunction<ServerResponse> restaurantRouting() {
         return RouterFunctions
                 .route(GET(BASE_ENDPOINT + "/get/all"), restaurantService::getAll)
+                .andRoute(GET(BASE_ENDPOINT + ""), restaurantService::getPage)
                 .andRoute(GET(BASE_ENDPOINT + "/{" + PATH_VARIABLE_RESTAURANT_ID + "}"), restaurantService::getRestaurant);
     }
 
