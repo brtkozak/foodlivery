@@ -7,14 +7,12 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import static com.foodlivery.restaurantservice.utils.Constants.BASE_ENDPOINT;
+import static com.foodlivery.restaurantservice.utils.Constants.PATH_VARIABLE_RESTAURANT_ID;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 
 @Configuration
 public class RestaurantRouter {
-
-    public static String BASE_ENDPOINT = "/restaurant";
-    public static String PATH_VARIABLE_RESTAURANT_ID = "restaurantId";
-
 
     private RestaurantService restaurantService;
 
@@ -25,8 +23,7 @@ public class RestaurantRouter {
     @Bean
     RouterFunction<ServerResponse> restaurantRouting() {
         return RouterFunctions
-                .route(GET(BASE_ENDPOINT + "/get/all"), restaurantService::getAll)
-                .andRoute(GET(BASE_ENDPOINT + ""), restaurantService::getPage)
+                .route(GET(BASE_ENDPOINT + ""), restaurantService::getRestaurants)
                 .andRoute(GET(BASE_ENDPOINT + "/{" + PATH_VARIABLE_RESTAURANT_ID + "}"), restaurantService::getRestaurant);
     }
 

@@ -8,6 +8,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 @Service
@@ -25,7 +26,7 @@ public class InitService {
 
         restaurantRepository.deleteAll()
                 .thenMany(
-                        Flux.just(new Restaurant("1", "Pizzeria", new Address("Wroclove", "Pilsudskiego", 1, 2, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.ITALIAN)), 29d),
+                        Flux.just(new Restaurant("1", "Pizzeria", new Address("Wroclove", "Pilsudskiego", 1, 2, "50-500"), Arrays.asList(Restaurant.Category.ITALIAN, Restaurant.Category.EUROPEAN), 29d),
                                 new Restaurant("2", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
                                 new Restaurant("3", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),
                                 new Restaurant("4", "Sushi Wroclove", new Address("Wroclove", "Kazimierza Wielkego", 2, 3, "50-500"), new ArrayList<Restaurant.Category>(Collections.singleton(Restaurant.Category.SUSHI)), 0d),

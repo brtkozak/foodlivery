@@ -31,6 +31,7 @@ public class Restaurant {
 
     public enum Category {
         ITALIAN("Italian"),
+        EUROPEAN("European"),
         SUSHI("Sushi");
 
         private String name;
