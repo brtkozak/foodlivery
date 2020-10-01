@@ -44,6 +44,16 @@ public class RatingService extends BaseService{
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
 
+    public Mono<ServerResponse> getComplexRatingForRestaurant(ServerRequest request) {
+        String restaurantId = request.pathVariable(Constants.PATH_VARIABLE_RESTAURANT_ID);
+        Flux<Rating> ratings = ratingRepository.findAllByRestaurantId(restaurantId);
+        return ratings
+                .collectList()
+                .map(RatingConverter::getComplexRating)
+                .flatMap(it -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), SimpleRatingResponse.class))
+                .switchIfEmpty(ServerResponse.notFound().build());
+    }
+
     public Mono<ServerResponse> addRating(ServerRequest request) {
         Mono<Rating> rating = request.bodyToMono(Rating.class)
                 .flatMap(requestValidator::validate);

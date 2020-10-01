@@ -17,7 +17,7 @@ public class UserConverter {
         return new BCryptPasswordEncoder();
     }
 
-    public  User userRequestToUser(UserRequest userRequest) {
+    public User userRequestToUser(UserRequest userRequest) {
         return new User(
                 userRequest.getEmail(),
                 encodePassword(userRequest.getPassword()),
@@ -27,7 +27,7 @@ public class UserConverter {
                 userRequest.getPhoneNo());
     }
 
-    public  UserResponse userToUserResponse(User user) {
+    public UserResponse userToUserResponse(User user) {
         return new UserResponse(
                 user.getId(),
                 user.getEmail(),

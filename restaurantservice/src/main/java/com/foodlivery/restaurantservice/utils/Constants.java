@@ -15,5 +15,6 @@ public class Constants {
 
     public static String SERVICE_PATH_DISH = "dishservice/dish";
     public static String SERVICE_PATH_RATING = "ratingservice/rating";
+    public static String SERVICE_PATH_USER = "userservice/user";
 
 }

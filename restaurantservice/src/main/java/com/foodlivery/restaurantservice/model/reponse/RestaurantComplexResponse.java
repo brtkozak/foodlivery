@@ -1,6 +1,7 @@
 package com.foodlivery.restaurantservice.model.reponse;
 
 import com.foodlivery.restaurantservice.model.Address;
+import com.foodlivery.restaurantservice.model.ComplexRating;
 import com.foodlivery.restaurantservice.model.Dish;
 import com.foodlivery.restaurantservice.model.Restaurant;
 import lombok.AllArgsConstructor;
@@ -18,5 +19,6 @@ public class RestaurantComplexResponse {
     public List<Restaurant.Category> categories;
     double minOrderPrice;
     public List<Dish> dishes;
+    public ComplexRating rating;
 
 }
