@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class RestaurantWithDishesResponse {
+public class RestaurantComplexResponse {
 
     public String id;
     public String name;

@@ -52,7 +52,7 @@ public class UserService implements ReactiveUserDetailsService {
                 .map(userConverter::userRequestToUser)
                 .flatMap(userRepository::insert)
                 .map(userConverter::userToUserResponse)
-                .flatMap(it -> ServerResponse.created(URI.create("http://localhoost:8080/user/" + it.getId())).contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), User.class));
+                .flatMap(it -> ServerResponse.created(URI.create(request.uri().toString() + "/" + it.getId())).contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), User.class));
     }
 
     public Mono<ServerResponse> updateUser(ServerRequest request) {
@@ -65,7 +65,7 @@ public class UserService implements ReactiveUserDetailsService {
                 })
                 .flatMap(userRepository::save)
                 .map(userConverter::userToUserResponse)
-                .flatMap(it -> ServerResponse.created(URI.create("http://localhoost:8080/user/" + it.getId())).contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), User.class));
+                .flatMap(it -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), User.class));
     }
 
     @Override

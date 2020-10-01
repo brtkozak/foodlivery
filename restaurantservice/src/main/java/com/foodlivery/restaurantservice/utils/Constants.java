@@ -14,4 +14,6 @@ public class Constants {
     public static String QUERY_CITY = "city";
 
     public static String SERVICE_PATH_DISH = "dishservice/dish";
+    public static String SERVICE_PATH_RATING = "ratingservice/rating";
+
 }

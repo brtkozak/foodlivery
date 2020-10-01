@@ -2,8 +2,10 @@ package com.foodlivery.restaurantservice.service;
 
 import com.foodlivery.restaurantservice.model.Dish;
 import com.foodlivery.restaurantservice.model.Restaurant;
+import com.foodlivery.restaurantservice.model.SimpleRating;
 import com.foodlivery.restaurantservice.model.reponse.PageResponse;
-import com.foodlivery.restaurantservice.model.reponse.RestaurantWithDishesResponse;
+import com.foodlivery.restaurantservice.model.reponse.RestaurantComplexResponse;
+import com.foodlivery.restaurantservice.model.reponse.RestaurantSimpleResponse;
 import com.foodlivery.restaurantservice.repository.RestaurantRepository;
 import com.foodlivery.restaurantservice.utils.Constants;
 import com.foodlivery.restaurantservice.utils.RequestConverter;
@@ -25,15 +27,16 @@ public class RestaurantService {
 
     private RestaurantRepository restaurantRepository;
     private DishService dishService;
+    private RatingService ratingService;
     private RestaurantConverter restaurantConverter;
     private ReactiveMongoTemplate reactiveMongoTemplate;
 
-
-    public RestaurantService(RestaurantRepository restaurantRepository, DishService dishService, RestaurantConverter restaurantConverter, ReactiveMongoTemplate reactiveMongoTemplate) {
+    public RestaurantService(RestaurantRepository restaurantRepository, DishService dishService, RestaurantConverter restaurantConverter, ReactiveMongoTemplate reactiveMongoTemplate, RatingService ratingService) {
         this.restaurantRepository = restaurantRepository;
         this.dishService = dishService;
         this.restaurantConverter = restaurantConverter;
         this.reactiveMongoTemplate = reactiveMongoTemplate;
+        this.ratingService = ratingService;
     }
 
     public Mono<ServerResponse> getRestaurants(ServerRequest request) {
@@ -63,10 +66,12 @@ public class RestaurantService {
 
         Flux<Restaurant> filteredRestaurants = reactiveMongoTemplate.find(query, Restaurant.class);
 
-        Mono<List<Restaurant>> restaurants =
+        Mono<List<RestaurantSimpleResponse>> restaurants =
                 filteredRestaurants
                         .skip(page.getPageNumber() * page.getPageSize())
                         .take(page.getPageSize())
+                        .flatMap(restaurant -> ratingService.getSimpleRatingForRestaurant(restaurant.getId())
+                                .map(rating -> restaurantConverter.getRestaurantSimpleResponse(restaurant, rating)))
                         .collectList();
 
         Mono<Long> allElementsCount =
@@ -74,7 +79,7 @@ public class RestaurantService {
                         .count();
 
         return Mono.zip(restaurants, allElementsCount)
-                .map( it -> new PageResponse<Restaurant>(page.getPageNumber(), page.getPageSize(), it.getT2().intValue(), it.getT1()))
+                .map( it -> new PageResponse<RestaurantSimpleResponse>(page.getPageNumber(), page.getPageSize(), it.getT2().intValue(), it.getT1()))
                 .flatMap(it -> ServerResponse.ok().body(Mono.just(it), PageResponse.class))
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
@@ -86,7 +91,7 @@ public class RestaurantService {
 
         return Mono.zip(restaurant, dishes)
                 .map(it -> restaurantConverter.getRestaurantWithDishes(it.getT1(), it.getT2()))
-                .flatMap(it -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), RestaurantWithDishesResponse.class))
+                .flatMap(it -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), RestaurantComplexResponse.class))
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
 

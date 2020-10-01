@@ -1,4 +1,5 @@
-package com.foodliver.userservice.router;
+package com.foodlivery.ratingservice.router;
+
 
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
@@ -9,9 +10,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.*;
 import reactor.core.publisher.Mono;
+
 import javax.validation.ConstraintViolationException;
 import java.util.Map;
 import java.util.Optional;
@@ -38,10 +41,12 @@ public class GlobalErrorWebExceptionHandler extends AbstractErrorWebExceptionHan
         Map<String, Object> errorPropertiesMap = getErrorAttributes(request, ErrorAttributeOptions.of(ErrorAttributeOptions.Include.MESSAGE, ErrorAttributeOptions.Include.EXCEPTION));
         int status = (int) Optional.ofNullable(errorPropertiesMap.get("status")).orElse(500);
 
-
         Exception exception = (Exception) getError(request);
         if (exception instanceof ConstraintViolationException) {
             status = 400;
+        }
+        else if(exception instanceof ClientException){
+            status = ((ClientException) exception).getStatus();
         }
         errorPropertiesMap.remove("exception");
         errorPropertiesMap.remove("error");
@@ -51,5 +56,4 @@ public class GlobalErrorWebExceptionHandler extends AbstractErrorWebExceptionHan
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(errorPropertiesMap));
     }
-
 }

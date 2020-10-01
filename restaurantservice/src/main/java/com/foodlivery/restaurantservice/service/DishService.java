@@ -10,12 +10,10 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @Service
-public class DishService {
-
-    private WebClient webClient;
+public class DishService extends BaseService{
 
     public DishService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.build();
+        super(webClientBuilder);
     }
 
     public Mono<List<Dish>> getDishesForRestaurant(String restaurantId) {
