@@ -24,7 +24,8 @@ public class DishRouter  {
     @Bean
     RouterFunction<ServerResponse> dishRouting() {
         return RouterFunctions
-                .route(GET(BASE_ENDPOINT + "/dish-for-restaurant/{" + PATH_VARIABLE_RESTAURANT_ID + "}"), dishService::getDishesForRestaurant);
+                .route(GET(BASE_ENDPOINT + "/dish-for-restaurant/{" + PATH_VARIABLE_RESTAURANT_ID + "}"), dishService::getDishesForRestaurant)
+                .andRoute(GET(BASE_ENDPOINT + "/{" + PATH_VARIABLE_RESTAURANT_ID + "}"), dishService::getDish);
     }
 
 }

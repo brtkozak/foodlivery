@@ -100,13 +100,12 @@ public class RestaurantService {
 
     private Mono<ComplexRating> getComplexRating(String restaurantId) {
         return ratingService.getComplexRatingForRestaurant(restaurantId).flatMap(
-                complexRatingDto -> {
-                    return Mono.just(complexRatingDto).map(ComplexRatingDto::getRatings)
-                            .flatMapIterable(it -> it)
-                            .flatMap(it -> userService.getUser(it.getUserId()).map(user -> RatingConverter.getRating(it, user)))
-                            .collectList()
-                            .map(it -> RatingConverter.getComplexRating(it, complexRatingDto));
-                }
+                complexRatingDto ->
+                        Mono.just(complexRatingDto).map(ComplexRatingDto::getRatings)
+                                .flatMapIterable(it -> it)
+                                .flatMap(it -> userService.getUser(it.getUserId()).map(user -> RatingConverter.getRating(it, user)))
+                                .collectList()
+                                .map(it -> RatingConverter.getComplexRating(it, complexRatingDto))
         );
     }
 

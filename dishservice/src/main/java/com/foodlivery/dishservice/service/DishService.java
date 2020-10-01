@@ -26,4 +26,9 @@ public class DishService {
                         ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(dishes), Dish.class));
     }
 
+    public Mono<ServerResponse> getDish(ServerRequest request) {
+        return dishRepository.findById(request.pathVariable(Constants.PATH_VARIABLE_RESTAURANT_ID))
+                .flatMap(dish -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(dish), Dish.class));
+    }
+
 }
