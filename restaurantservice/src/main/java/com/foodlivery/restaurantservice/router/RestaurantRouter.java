@@ -23,7 +23,7 @@ public class RestaurantRouter {
     @Bean
     RouterFunction<ServerResponse> restaurantRouting() {
         return RouterFunctions
-                .route(GET(BASE_ENDPOINT + ""), restaurantService::getRestaurants)
+                .route(GET(BASE_ENDPOINT), restaurantService::getRestaurants)
                 .andRoute(GET(BASE_ENDPOINT + "/{" + PATH_VARIABLE_RESTAURANT_ID + "}"), restaurantService::getRestaurant);
     }
 

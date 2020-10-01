@@ -1,6 +1,7 @@
 package com.foodliver.userservice.service;
 
 import com.foodliver.userservice.router.UserRouter;
+import com.foodliver.userservice.utils.Constants;
 import com.foodliver.userservice.utils.RequestValidator;
 import com.foodliver.userservice.utils.UserConverter;
 import com.foodliver.userservice.model.User;
@@ -31,7 +32,7 @@ public class UserService implements ReactiveUserDetailsService {
     }
 
     public Mono<ServerResponse> getUser(ServerRequest request) {
-        return userRepository.findById(request.pathVariable(UserRouter.PATH_VARIABLE_USER_ID))
+        return userRepository.findById(request.pathVariable(Constants.PATH_VARIABLE_USER_ID))
                 .map(userConverter::userToUserResponse)
                 .flatMap(user ->
                         ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(user), User.class))
@@ -59,7 +60,7 @@ public class UserService implements ReactiveUserDetailsService {
                 .flatMap(requestValidator::validate)
                 .map(userConverter::userRequestToUser)
                 .map(user -> {
-                    user.setId(request.pathVariable(UserRouter.PATH_VARIABLE_USER_ID));
+                    user.setId(request.pathVariable(Constants.PATH_VARIABLE_USER_ID));
                     return user;
                 })
                 .flatMap(userRepository::save)

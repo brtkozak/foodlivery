@@ -12,7 +12,7 @@ import java.util.Collections;
 
 @Data
 @AllArgsConstructor
-@Document(collection = "users")
+@Document(collection = "user")
 @NoArgsConstructor
 public class User implements UserDetails {
 

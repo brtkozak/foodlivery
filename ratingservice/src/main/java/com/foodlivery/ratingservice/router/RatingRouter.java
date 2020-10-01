@@ -23,7 +23,7 @@ public class RatingRouter {
     RouterFunction<ServerResponse> ratingRouting() {
         return RouterFunctions
                 .route(GET(Constants.BASE_ENDPOINT + "/simple-rating-for-restaurant/{" + Constants.PATH_VARIABLE_RESTAURANT_ID + "}"), ratingService::getSimpleRatingForRestaurant)
-                .and(POST(Constants.BASE_ENDPOINT), ratingService::addRating);
+                .andRoute(POST(Constants.BASE_ENDPOINT), ratingService::addRating);
     }
 
 }

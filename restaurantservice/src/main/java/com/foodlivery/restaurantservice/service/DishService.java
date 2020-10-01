@@ -21,7 +21,7 @@ public class DishService {
     public Mono<List<Dish>> getDishesForRestaurant(String restaurantId) {
         return webClient
                 .get()
-                .uri("http://"+ Constants.SERVICE_NAME_DISH +"/dish/dish-for-restaurant/" + restaurantId)
+                .uri("http://"+ Constants.SERVICE_PATH_DISH +"/dish-for-restaurant/" + restaurantId)
                 .retrieve()
                 .bodyToFlux(Dish.class)
                 .collectList();

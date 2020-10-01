@@ -88,7 +88,6 @@ public class RestaurantService {
                 .map(it -> restaurantConverter.getRestaurantWithDishes(it.getT1(), it.getT2()))
                 .flatMap(it -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), RestaurantWithDishesResponse.class))
                 .switchIfEmpty(ServerResponse.notFound().build());
-
     }
 
 }

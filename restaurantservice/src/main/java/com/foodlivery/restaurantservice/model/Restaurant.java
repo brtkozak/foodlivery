@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Data
-@Document(collection = "restaurants")
+@Document(collection = "restaurant")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Restaurant {

@@ -24,7 +24,7 @@ public class Beans {
 
     @Bean
     public ReactiveMongoTemplate reactiveMongoTemplate() {
-        return new ReactiveMongoTemplate(mongoClient, "restaurant_database");
+        return new ReactiveMongoTemplate(mongoClient, "restaurant");
     }
 
 }

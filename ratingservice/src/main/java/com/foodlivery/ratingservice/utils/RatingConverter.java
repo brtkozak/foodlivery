@@ -11,7 +11,7 @@ public class RatingConverter {
 
     public static SimpleRatingResponse getSimpleRating(List<Rating> ratings) {
         double avg = ratings.stream().map(Rating::getRate).mapToInt(Integer::intValue).average().orElse(0d);
-        return SimpleRating(avg, ratings.size());
+        return new SimpleRatingResponse(avg, ratings.size());
     }
 
 }
