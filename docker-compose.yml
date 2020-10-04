@@ -1,0 +1,52 @@
+version: "3"
+services:
+  discoveryserver:
+    image: discoveryserver:v1
+    container_name: discoveryserver
+    ports:
+    - 8761:8761
+  mongodb:
+    image: mongo:latest
+    container_name: "mongo"
+    ports:
+    - 27017:27017
+  userservice:
+    image: userservice:v5
+    container_name: "userservice"
+    ports:
+    - 8085:8085
+    depends_on:
+      - discoveryserver
+      - mongodb
+  restaurantservice:
+    image: restaurantservice:v1
+    container_name: "restaurantservice"
+    ports:
+      - 8081:8081
+    depends_on:
+      - discoveryserver
+      - mongodb
+  dishservice:
+    image: dishservice:v1
+    container_name: "dishservice"
+    ports:
+      - 8082:8082
+    depends_on:
+      - discoveryserver
+      - mongodb
+  ratingservice:
+    image: ratingservice:v1
+    container_name: "ratingservice"
+    ports:
+      - 8083:8083
+    depends_on:
+      - discoveryserver
+      - mongodb
+  orderservice:
+    image: orderservice:v1
+    container_name: "orderservice"
+    ports:
+      - 8084:8084
+    depends_on:
+      - discoveryserver
+      - mongodb
