@@ -8,8 +8,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import static com.foodlivery.dishservice.utils.Constants.BASE_ENDPOINT;
-import static com.foodlivery.dishservice.utils.Constants.PATH_VARIABLE_RESTAURANT_ID;
+import static com.foodlivery.dishservice.utils.Constants.*;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 
 @Configuration
@@ -25,7 +24,7 @@ public class DishRouter  {
     RouterFunction<ServerResponse> dishRouting() {
         return RouterFunctions
                 .route(GET(BASE_ENDPOINT + "/dish-for-restaurant/{" + PATH_VARIABLE_RESTAURANT_ID + "}"), dishService::getDishesForRestaurant)
-                .andRoute(GET(BASE_ENDPOINT + "/{" + PATH_VARIABLE_RESTAURANT_ID + "}"), dishService::getDish);
+                .andRoute(GET(BASE_ENDPOINT + "/{" + PATH_VARIABLE_DISH_ID + "}"), dishService::getDish);
     }
 
 }

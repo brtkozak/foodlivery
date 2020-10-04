@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -30,5 +31,5 @@ public class Order {
     @NotNull(message = "Dishes ids can't be empty")
     List<String> dishesIds;
     double totalPrice;
-    LocalDate createdDate = LocalDate.now();
+    LocalDateTime createdDate = LocalDateTime.now();
 }

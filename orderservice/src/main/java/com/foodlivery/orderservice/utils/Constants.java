@@ -8,5 +8,4 @@ public class Constants {
     public static String PATH_VARIABLE_ORDER_ID = "orderId";
     public static String PATH_VARIABLE_USER_ID = "userId";
     public static String SERVICE_PATH_DISH = "dishservice/dish";
-
 }

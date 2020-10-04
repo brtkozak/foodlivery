@@ -1,7 +1,9 @@
 package com.foodliver.userservice.service;
 
-import com.foodliver.userservice.router.UserRouter;
+import com.foodliver.userservice.model.dto.OrderDto;
+import com.foodliver.userservice.model.response.OrderResponse;
 import com.foodliver.userservice.utils.Constants;
+import com.foodliver.userservice.utils.OrderConverter;
 import com.foodliver.userservice.utils.RequestValidator;
 import com.foodliver.userservice.utils.UserConverter;
 import com.foodliver.userservice.model.User;
@@ -14,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
@@ -24,11 +27,15 @@ public class UserService implements ReactiveUserDetailsService {
     private UserRepository userRepository;
     private RequestValidator requestValidator;
     private UserConverter userConverter;
+    private OrderService orderService;
+    private DishService dishService;
 
-    public UserService(UserRepository userRepository, RequestValidator requestValidator, UserConverter userConverter){
+    public UserService(UserRepository userRepository, RequestValidator requestValidator, UserConverter userConverter, OrderService orderService, DishService dishService){
         this.userRepository = userRepository;
         this.requestValidator = requestValidator;
         this.userConverter = userConverter;
+        this.orderService = orderService;
+        this.dishService = dishService;
     }
 
     public Mono<ServerResponse> getUser(ServerRequest request) {
@@ -68,6 +75,17 @@ public class UserService implements ReactiveUserDetailsService {
                 .flatMap(it -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), User.class));
     }
 
+    public Mono<ServerResponse> getOrders(ServerRequest request) {
+        String userId = request.pathVariable(Constants.PATH_VARIABLE_USER_ID);
+        Mono<OrderDto> orderDto = orderService.getOrdersForUser(userId);
+        return orderDto.flatMap(order ->
+                Flux.fromIterable(order.getDishesIds())
+                        .flatMap(dishId -> dishService.getDish(dishId))
+                        .collectList()
+                        .map(it -> OrderConverter.getOrderResponse(order, it))
+                        .flatMap(it -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), OrderResponse.class)));
+    }
+
     @Override
     public Mono<UserDetails> findByUsername(String userName) {
         return userRepository.findByUsername(userName)
@@ -81,5 +99,6 @@ public class UserService implements ReactiveUserDetailsService {
                     }
                 });
     }
+
 
 }

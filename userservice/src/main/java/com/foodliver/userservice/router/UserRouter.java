@@ -27,7 +27,8 @@ public class UserRouter {
                 route(GET(BASE_ENDPOINT + "/{" + PATH_VARIABLE_USER_ID + "}"), userService::getUser)
                 .andRoute(POST( BASE_ENDPOINT +"/register"), userService::registerUser)
                 .andRoute(GET(BASE_ENDPOINT + "/get/all"), userService::getAll)
-                .andRoute(PUT(BASE_ENDPOINT + "/{" + PATH_VARIABLE_USER_ID + "}"), userService::updateUser);
+                .andRoute(PUT(BASE_ENDPOINT + "/{" + PATH_VARIABLE_USER_ID + "}"), userService::updateUser)
+                .andRoute(GET(BASE_ENDPOINT + "/{" + PATH_VARIABLE_USER_ID + "}/order"), userService::getOrders);
     }
 
 }

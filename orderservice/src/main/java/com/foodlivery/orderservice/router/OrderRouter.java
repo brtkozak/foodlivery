@@ -7,8 +7,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import static com.foodlivery.orderservice.utils.Constants.BASE_ENDPOINT;
-import static com.foodlivery.orderservice.utils.Constants.PATH_VARIABLE_ORDER_ID;
+import static com.foodlivery.orderservice.utils.Constants.*;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 
@@ -26,7 +25,7 @@ public class OrderRouter {
         return RouterFunctions
                 .route(POST(BASE_ENDPOINT), orderService::addOrder)
                 .andRoute(GET(BASE_ENDPOINT + "/{" + PATH_VARIABLE_ORDER_ID + "}"), orderService::getOrder)
-                .andRoute(GET(BASE_ENDPOINT + "/order-for-customer/{" + PATH_VARIABLE_ORDER_ID + "}"), orderService::getCustomerOrders);
+                .andRoute(GET(BASE_ENDPOINT + "/order-for-customer/{" + PATH_VARIABLE_USER_ID + "}"), orderService::getCustomerOrders);
     }
 
 }
