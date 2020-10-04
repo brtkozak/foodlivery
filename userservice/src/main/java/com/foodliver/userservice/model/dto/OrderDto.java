@@ -18,5 +18,6 @@ public class OrderDto {
     Address address;
     String phoneNo;
     List<String> dishesIds;
+    double totalPrice;
     LocalDate createdDate;
 }

@@ -27,7 +27,7 @@ public class InitService {
                 .deleteAll()
                 .thenMany(
                         Flux.just(
-                                new Order("1", "1", "1", new Address("city", "street", 1, 1, "50-000"), "500400600", Arrays.asList("1", "2"),  100, LocalDateTime.now())
+                                new Order("1", "1", "1", new Address("city", "street", 1, 1, "50-000"), "500400600", Arrays.asList("1", "1", "2"),  100, LocalDateTime.now())
                         )
                 )
                 .flatMap(orderRepository::save)

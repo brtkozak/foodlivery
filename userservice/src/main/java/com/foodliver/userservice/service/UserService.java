@@ -20,6 +20,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements ReactiveUserDetailsService {
@@ -77,13 +78,17 @@ public class UserService implements ReactiveUserDetailsService {
 
     public Mono<ServerResponse> getOrders(ServerRequest request) {
         String userId = request.pathVariable(Constants.PATH_VARIABLE_USER_ID);
-        Mono<OrderDto> orderDto = orderService.getOrdersForUser(userId);
-        return orderDto.flatMap(order ->
-                Flux.fromIterable(order.getDishesIds())
-                        .flatMap(dishId -> dishService.getDish(dishId))
+        Flux<OrderDto> orderDto = orderService.getOrdersForUser(userId);
+
+        return orderDto
+                .flatMap(order ->
+                        Flux.fromIterable(order.getDishesIds().stream().distinct().collect(Collectors.toList()))
+                                .flatMap(dishId -> dishService.getDish(dishId))
+                                .collectList()
+                                .map(it -> OrderConverter.getOrderResponse(order, it)))
                         .collectList()
-                        .map(it -> OrderConverter.getOrderResponse(order, it))
-                        .flatMap(it -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), OrderResponse.class)));
+                        .flatMap(it -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(it), OrderResponse.class));
+
     }
 
     @Override
@@ -99,6 +104,5 @@ public class UserService implements ReactiveUserDetailsService {
                     }
                 });
     }
-
 
 }

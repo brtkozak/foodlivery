@@ -7,7 +7,7 @@ abstract public class BaseService {
     WebClient webClient;
 
     public BaseService(WebClient.Builder webClientBuilder) {
-        this.webClient = WebClient.builder().build();
+        this.webClient = webClientBuilder.build();
     }
 
 }

@@ -17,6 +17,7 @@ public class OrderResponse {
     String restaurantId;
     Address address;
     String phoneNo;
-    List<Dish> dishesIds;
+    List<Dish> dishes;
+    double totalPrice;
     LocalDate createdDate;
 }

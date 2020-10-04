@@ -16,4 +16,5 @@ public class Dish {
     private String name;
     private double price;
     private List<String> ingredients;
+    private int quantity;
 }
